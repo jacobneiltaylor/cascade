@@ -15,11 +15,12 @@ Supported Features
 * Limited dependencies: This library only depends on C++11 and the STL. No boost, pthreads or WinAPI required! 
 * High-level interface: The library is completely object oriented, and the threadManager class (the main entry point to the libraries functionality) is coded as a singleton. No need to play hot potato with pointers (and debug the associated memory access violations)!
 * Automatic resource management: Threads are spun up when new work is assigned and released when complete, so your application automatically uses only as much system resources as absolutely necessary.
+* Registerable mutexes: Mutexes can be created by registering them with the threadManager, which means they are then easily accessible in all workers, automatically.
 
 Future Features
 ---------------
 
-In the future, we hope to add advanced features including reserved threads, persistent (service) threads, integrated message passing, dynamically registered mutexes and more.
+In the future, we hope to add advanced features including reserved threads, persistent (service) threads, integrated message passing, automatic mutex release on thread completion and more.
 
 Licensing
 ---------
