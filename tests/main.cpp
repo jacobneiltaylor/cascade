@@ -18,7 +18,7 @@ int main()
 
 	cout << "=== Library Information ===\n";
 	cout << "Test program compiled against: " << LIBCASCADE_VERSION << "\n";
-	cout << "Installed library version: " << taylornet::cascade::threadManager::libCascadeVersion() << "\n";
+	cout << "Installed library version: " << taylornet::cascade::threadManager::libCascadeVersion() << "\n\n";
 
 	int hardwareThreads = taylornet::cascade::threadManager::hardwareThreads();
 
