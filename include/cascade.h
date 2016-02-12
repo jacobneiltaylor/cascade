@@ -12,7 +12,7 @@
 
 #define LIBCASCADE_BASE
 
-#define LIBCASCADE_VERSION 0.2.0
+#define LIBCASCADE_VERSION 0.3.0
 
 // Support symbol export on Windows platform
 #ifdef _WIN32
