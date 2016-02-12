@@ -34,6 +34,7 @@ namespace taylornet
 
 				std::queue<worker*> workerQueue;
 				std::vector<threadHost*> threadHosts;
+				std::map<std::string, std::mutex*> registeredMutexes;
 				// Future feature: named hosts - std::map<std::string, threadHost*> namedHosts;
 
 				void generateThreadHosts();
@@ -52,9 +53,14 @@ namespace taylornet
 				static LIBCASCADE_API bool instanceAvailable();
 				static LIBCASCADE_API void destroyInstance();
 
+				static LIBCASCADE_API unsigned int hardwareThreads();
+
+				LIBCASCADE_API void registerNewMutex(std::string name);
+				LIBCASCADE_API void lock(std::string name);
+				LIBCASCADE_API void unlock(std::string name);
+
 				LIBCASCADE_API unsigned int getThreadLimit();
 				LIBCASCADE_API unsigned int getHostCount();
-				LIBCASCADE_API static unsigned int hardwareThreads();
 
 				LIBCASCADE_API bool oversubEnabled();
 

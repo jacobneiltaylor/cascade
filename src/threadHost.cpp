@@ -132,5 +132,15 @@ namespace taylornet
 
 			return retval;
 		}
+
+		void threadHost::lock(std::string name)
+		{
+			this->manager->lock(name);
+		}
+
+		void threadHost::unlock(std::string name)
+		{
+			this->manager->unlock(name);
+		}
 	}
 }

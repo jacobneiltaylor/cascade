@@ -2,8 +2,6 @@
 
 #include "testWorker.h"
 
-std::mutex testWorker::outputMutex;
-
 testWorker::testWorker(std::string text)
 {
 	this->text = text;
@@ -24,9 +22,9 @@ void testWorker::work()
 
 	std::this_thread::sleep_for(std::chrono::milliseconds(x * 1000));
 
-	outputMutex.lock();
+	this->lock("output");
 	std::cout << text << "\nRandom number: " << x << "\n\n";
-	outputMutex.unlock();
+	this->unlock("output");
 }
 
 #endif

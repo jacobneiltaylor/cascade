@@ -43,6 +43,8 @@ namespace taylornet
 				LIBCASCADE_API void waitForWorker();
 				LIBCASCADE_API bool workerDone();
 
+				LIBCASCADE_API void lock(std::string name);
+				LIBCASCADE_API void unlock(std::string name);
 
 			friend class threadManager;
 		};

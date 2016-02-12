@@ -13,7 +13,6 @@ class testWorker : public worker
 {
 	private:
 
-		static std::mutex outputMutex;
 		std::string text;
 		void work();
 

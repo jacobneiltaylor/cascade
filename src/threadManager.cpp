@@ -21,7 +21,11 @@ namespace taylornet
 		{
 			for(unsigned int i = 0; i < this->threadLimit; i++)
 			{
-				this->threadHosts.push_back(new threadHost());
+				threadHost* th = new threadHost();
+
+				th->assignManager(this);
+
+				this->threadHosts.push_back(th);
 			}
 		}
 
@@ -132,6 +136,26 @@ namespace taylornet
 			}
 		}
 
+		unsigned int threadManager::hardwareThreads()
+		{
+			return std::thread::hardware_concurrency();
+		}
+
+		void threadManager::registerNewMutex(std::string name)
+		{
+			this->registeredMutexes[name] = new std::mutex();
+		}
+
+		void threadManager::lock(std::string name)
+		{
+			this->registeredMutexes[name]->lock();
+		}
+
+		void threadManager::unlock(std::string name)
+		{
+			this->registeredMutexes[name]->unlock();
+		}
+
 		unsigned int threadManager::getThreadLimit()
 		{
 			return this->threadLimit;
@@ -140,11 +164,6 @@ namespace taylornet
 		unsigned int threadManager::getHostCount()
 		{
 			return this->threadHosts.size();
-		}
-
-		unsigned int threadManager::hardwareThreads()
-		{
-			return std::thread::hardware_concurrency();
 		}
 
 		bool threadManager::oversubEnabled()

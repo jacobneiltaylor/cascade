@@ -35,6 +35,8 @@ namespace taylornet
 
 			protected:
 
+				LIBCASCADE_API void lock(std::string name);
+				LIBCASCADE_API void unlock(std::string name);
 				virtual LIBCASCADE_API void work()=0;
 
 			public:

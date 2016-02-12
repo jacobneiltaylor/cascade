@@ -14,6 +14,15 @@ namespace taylornet
 {
 	namespace cascade
 	{
+		void worker::lock(std::string name)
+		{
+			this->host->lock(name);
+		}
+
+		void worker::unlock(std::string name)
+		{
+			this->host->unlock(name);
+		}
 
 		worker::worker()
 		{

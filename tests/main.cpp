@@ -26,6 +26,10 @@ int main()
 
 	cout << "Thread manager has " << tm->getHostCount() << " thread hosts\n\n";
 
+	cout << "Registering mutex...\n\n";
+
+	tm->registerNewMutex("output");
+
 	cout << "Loading workers into thread queue...\n\n";
 
 	for(unsigned int i = 0; i < tm->getHostCount(); i++)
