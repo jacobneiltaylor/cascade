@@ -18,15 +18,17 @@ int main()
 		 << " |                             | \n"
 		 << "=================================\n\n\n";
 
-	cout << "Hardware threads detected: " << taylornet::cascade::threadManager::hardwareThreads() << "\n\n";
+	int hardwareThreads = taylornet::cascade::threadManager::hardwareThreads();
 
-	cout << "Initialising threadManager with " << TEST_THREADCOUNT << " threads...\n\n";
+	cout << "Hardware threads detected: " << hardwareThreads << "\n\n";
 
-	threadManager* tm = threadManager::getInstance(TEST_THREADCOUNT, true);
+	cout << "Initialising threadManager with " << hardwareThreads-1 << " threads...\n\n";
+
+	threadManager* tm = threadManager::getInstance(hardwareThreads-1, true);
 
 	cout << "Thread manager has " << tm->getHostCount() << " thread hosts\n\n";
 
-	cout << "Loading workers into thread queue...\n\n";using namespace taylornet::cascade;
+	cout << "Loading workers into thread queue...\n\n";
 
 	for(unsigned int i = 0; i < tm->getHostCount(); i++)
 	{
