@@ -1,7 +1,5 @@
 #ifdef __TEST__
 
-#define TEST_THREADCOUNT 7
-
 #include "testWorker.h"
 
 using namespace std;
@@ -24,7 +22,7 @@ int main()
 
 	cout << "Initialising threadManager with " << hardwareThreads-1 << " threads...\n\n";
 
-	threadManager* tm = threadManager::getInstance(hardwareThreads-1, true);
+	threadManager* tm = threadManager::getInstance(hardwareThreads-1, false);
 
 	cout << "Thread manager has " << tm->getHostCount() << " thread hosts\n\n";
 
@@ -33,7 +31,7 @@ int main()
 	for(unsigned int i = 0; i < tm->getHostCount(); i++)
 	{
 		//cout >>
-		string str = SSTR("This is thread number " << i+1 << "\n");
+		string str = SSTR("This is thread number " << i+1);
 
 		testWorker* newWorker = new testWorker(str);
 		tm->addWorker(newWorker);
@@ -51,6 +49,8 @@ int main()
 	cout << "Waiting for threads...\n\n";
 
 	tm->waitForWorkers();
+
+	system("pause");
 
 	return false;
 }

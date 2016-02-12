@@ -86,7 +86,14 @@ namespace taylornet
 
 		bool threadHost::threadRunning()
 		{
-			return this->thread->joinable();
+			bool retval = false;
+
+			if (this->thread != nullptr)
+			{
+				retval = this->thread->joinable();
+			}
+
+			return retval;
 		}
 
 		std::thread::id threadHost::getThreadId()
@@ -116,7 +123,14 @@ namespace taylornet
 
 		bool threadHost::workerDone()
 		{
-			return this->assignedWorker->workDone();
+			bool retval = true;
+
+			if (this->assignedWorker != nullptr)
+			{
+				retval = this->assignedWorker->workDone();
+			}
+
+			return retval;
 		}
 	}
 }

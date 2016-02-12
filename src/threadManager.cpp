@@ -21,7 +21,7 @@ namespace taylornet
 		{
 			for(unsigned int i = 0; i < this->threadLimit; i++)
 			{
-				this->threadHosts[i] = new threadHost();
+				this->threadHosts.push_back(new threadHost());
 			}
 		}
 
@@ -224,7 +224,7 @@ namespace taylornet
 
 			for(unsigned int i = 0; i < hostCount; i++)
 			{
-				if(this->threadHosts[i]->threadRunning())
+				if(!this->threadHosts[i]->threadRunning())
 				{
 					idleCount++;
 				}

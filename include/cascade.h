@@ -12,7 +12,7 @@
 
 #define LIBCASCADE_BASE
 
-#define LIBCASCADE_VERSION 0.1
+#define LIBCASCADE_VERSION 0.2.0
 
 // Support symbol export on Windows platform
 #ifdef _WIN32
@@ -27,6 +27,7 @@
 
 // STL Dependencies
 #include <thread>
+#include <mutex>
 #include <queue>
 #include <vector>
 #include <map>
