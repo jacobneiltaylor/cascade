@@ -46,6 +46,8 @@ namespace taylornet
 
 			public:
 
+				static LIBCASCADE_API const char* libCascadeVersion();
+
 				static LIBCASCADE_API threadManager* getInstance();
 				static LIBCASCADE_API threadManager* getInstance(unsigned int softThreadLimit);
 				static LIBCASCADE_API threadManager* getInstance(unsigned int softThreadLimit, bool oversub);

@@ -16,6 +16,10 @@ int main()
 		 << " |                             | \n"
 		 << "=================================\n\n\n";
 
+	cout << "=== Library Information ===\n";
+	cout << "Test program compiled against: " << LIBCASCADE_VERSION << "\n";
+	cout << "Installed library version: " << taylornet::cascade::threadManager::libCascadeVersion() << "\n";
+
 	int hardwareThreads = taylornet::cascade::threadManager::hardwareThreads();
 
 	cout << "Hardware threads detected: " << hardwareThreads << "\n\n";

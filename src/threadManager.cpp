@@ -17,6 +17,11 @@ namespace taylornet
 		threadManager* threadManager::tmInstance = nullptr;
 		bool threadManager::initialised = false;
 
+		const char* threadManager::libCascadeVersion()
+		{
+			return LIBCASCADE_VERSION;
+		}
+
 		void threadManager::generateThreadHosts()
 		{
 			for(unsigned int i = 0; i < this->threadLimit; i++)
