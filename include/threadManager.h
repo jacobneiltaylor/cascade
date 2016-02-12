@@ -45,30 +45,30 @@ namespace taylornet
 
 			public:
 
-				static threadManager* getInstance();
-				static threadManager* getInstance(unsigned int softThreadLimit);
-				static threadManager* getInstance(unsigned int softThreadLimit, bool oversub);
+				static LIBCASCADE_API threadManager* getInstance();
+				static LIBCASCADE_API threadManager* getInstance(unsigned int softThreadLimit);
+				static LIBCASCADE_API threadManager* getInstance(unsigned int softThreadLimit, bool oversub);
 
-				static bool instanceAvailable();
-				static void destroyInstance();
+				static LIBCASCADE_API bool instanceAvailable();
+				static LIBCASCADE_API void destroyInstance();
 
-				unsigned int getThreadLimit();
-				unsigned int getHostCount();
-				static unsigned int hardwareThreads();
+				LIBCASCADE_API unsigned int getThreadLimit();
+				LIBCASCADE_API unsigned int getHostCount();
+				LIBCASCADE_API static unsigned int hardwareThreads();
 
-				bool oversubEnabled();
+				LIBCASCADE_API bool oversubEnabled();
 
-				void addWorker(worker* newWorker);
-				bool dispatchQueue(bool autostart = true);
-				worker* getDispatchedWorker();
-				threadHost* getDispatchedHost();
-				unsigned int getQueueLength();
+				LIBCASCADE_API void addWorker(worker* newWorker);
+				LIBCASCADE_API bool dispatchQueue(bool autostart = true);
+				LIBCASCADE_API worker* getDispatchedWorker();
+				LIBCASCADE_API threadHost* getDispatchedHost();
+				LIBCASCADE_API unsigned int getQueueLength();
 
-				void waitForWorkers();
+				LIBCASCADE_API void waitForWorkers();
 
-				unsigned int freeThreads();
-				unsigned int idleThreads();
-				unsigned int busyThreads();
+				LIBCASCADE_API unsigned int freeThreads();
+				LIBCASCADE_API unsigned int idleThreads();
+				LIBCASCADE_API unsigned int busyThreads();
 		};
 	}
 }

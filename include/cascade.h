@@ -14,6 +14,17 @@
 
 #define LIBCASCADE_VERSION 0.1
 
+// Support symbol export on Windows platform
+#ifdef _WIN32
+	#ifdef _WINDLL
+		#define LIBCASCADE_API __declspec(dllexport) 
+	#else
+		#define LIBCASCADE_API __declspec(dllimport) 
+	#endif
+#else
+	#define LIBCASCADE_API
+#endif
+
 // STL Dependencies
 #include <thread>
 #include <queue>

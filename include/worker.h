@@ -35,25 +35,25 @@ namespace taylornet
 
 			protected:
 
-				virtual void work()=0;
+				virtual LIBCASCADE_API void work()=0;
 
 			public:
 
-				void threadMain();
+				LIBCASCADE_API void threadMain();
 
-				worker();
-				virtual ~worker();
+				LIBCASCADE_API worker();
+				LIBCASCADE_API virtual ~worker();
 				
-				void setCallback(workerCallback* callback);
-				void runCallback();
+				LIBCASCADE_API void setCallback(workerCallback* callback);
+				LIBCASCADE_API void runCallback();
 
-				void enableAutoclean();
-				void disableAutoclean();
-				void runAutoclean();
-				bool autocleanEnabled();
+				LIBCASCADE_API void enableAutoclean();
+				LIBCASCADE_API void disableAutoclean();
+				LIBCASCADE_API void runAutoclean();
+				LIBCASCADE_API bool autocleanEnabled();
 
-				void resetWork();
-				bool workDone();
+				LIBCASCADE_API void resetWork();
+				LIBCASCADE_API bool workDone();
 
 			friend class threadHost;
 		};

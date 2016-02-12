@@ -31,17 +31,17 @@ namespace taylornet
 
 			public:
 
-				threadHost();
-				~threadHost();
+				LIBCASCADE_API threadHost();
+				LIBCASCADE_API ~threadHost();
 
-				void startThread();
-				void syncThread(bool wait = true);
-				bool threadRunning();
-				std::thread::id getThreadId();
+				LIBCASCADE_API void startThread();
+				LIBCASCADE_API void syncThread(bool wait = true);
+				LIBCASCADE_API bool threadRunning();
+				LIBCASCADE_API std::thread::id getThreadId();
 
-				void assignWorker(worker* worker);
-				void waitForWorker();
-				bool workerDone();
+				LIBCASCADE_API void assignWorker(worker* worker);
+				LIBCASCADE_API void waitForWorker();
+				LIBCASCADE_API bool workerDone();
 
 
 			friend class threadManager;
