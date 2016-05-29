@@ -21,13 +21,17 @@ namespace taylornet
 
 				bool assigned;
 				bool managed;
-				//Future feature: reserved thread hosts - bool reserved;
+				bool reserved;
 
 				std::thread* thread;
 				worker* assignedWorker;
 				threadManager* manager;
 				
 				void assignManager(threadManager* manager);
+				void assignWorker_P(worker* worker);
+
+				void reserve();
+				void release();
 
 			public:
 
@@ -45,6 +49,8 @@ namespace taylornet
 
 				LIBCASCADE_API void lock(std::string name);
 				LIBCASCADE_API void unlock(std::string name);
+
+				LIBCASCADE_API bool isReserved();
 
 			friend class threadManager;
 		};
