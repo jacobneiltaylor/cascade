@@ -41,10 +41,10 @@ namespace taylornet
 
 			for(unsigned int i = 0; i < hostCount; i++)
 			{
-				if(this->threadHosts[i]->workerDone())
+				if(this->threadHosts[i]->workerDone() && !this->threadHosts[i]->isReserved())
 				{
 					freeIndex = i;
-					i = hostCount;
+					break;
 				}
 			}
 
@@ -58,7 +58,7 @@ namespace taylornet
 			this->oversub = false;
 			this->hardThreadLimit = hardwareThreads();
 			this->threadLimit = this->hardThreadLimit;
-
+			this->wait_reservation = false;
 			this->generateThreadHosts();
 		}
 
@@ -187,14 +187,15 @@ namespace taylornet
 
 			if(!this->workerQueue.empty())
 			{
-				if(this->freeThreads() > 0)
+				if(this->freeThreads() > 0 && !wait_reservation)
 				{
-					threadHost* freeHost = this->threadHosts[getFreeThreadHost()];
+					unsigned int freeHostIndex = getFreeThreadHost();
+					threadHost* freeHost = this->threadHosts[freeHostIndex];
 					worker* nextWorker = this->workerQueue.front();
 
 					this->workerQueue.pop();
 
-					freeHost->assignWorker(nextWorker);
+					freeHost->assignWorker_P(nextWorker);
 
 					if(autostart)
 					{
@@ -225,11 +226,11 @@ namespace taylornet
 			return this->workerQueue.size();
 		}
 
-		void threadManager::waitForWorkers()
+		void threadManager::waitForWorkers(bool unreserved_only)
 		{
 			for(int i = 0; i < this->getHostCount(); i++)
 			{
-				if(!this->threadHosts[i]->workerDone())
+				if(!(unreserved_only && this->threadHosts[i]->isReserved()) && !this->threadHosts[i]->workerDone())
 				{
 					this->threadHosts[i]->waitForWorker();
 				}
@@ -238,7 +239,18 @@ namespace taylornet
 
 		unsigned int threadManager::freeThreads()
 		{
-			return this->idleThreads();
+			unsigned int hostCount = this->getHostCount();
+			unsigned int freeCount = 0;
+
+			for (unsigned int i = 0; i < hostCount; i++)
+			{
+				if (!this->threadHosts[i]->threadRunning() && !this->threadHosts[i]->isReserved())
+				{
+					freeCount++;
+				}
+			}
+
+			return freeCount;
 		}
 
 		unsigned int threadManager::idleThreads()
@@ -260,6 +272,43 @@ namespace taylornet
 		unsigned int threadManager::busyThreads()
 		{
 			return this->getHostCount() - this->idleThreads();
+		}
+
+		threadHost* threadManager::reserveThread(std::string name)
+		{
+			threadHost* reserved_thread = nullptr;
+			this->wait_reservation = true;
+
+			while (wait_reservation)
+			{
+				if (this->idleThreads() > 0)
+				{
+					reserved_thread = this->threadHosts[getFreeThreadHost()];
+
+					reserved_thread->reserve();
+
+					this->reservedThreads[name] = reserved_thread;
+
+					wait_reservation = false;
+				}
+			}
+
+			return reserved_thread;
+		}
+
+		void threadManager::releaseThread(std::string name)
+		{
+			bool done = false;
+
+			while (!done)
+			{
+				if (!this->reservedThreads[name]->threadRunning())
+				{
+					this->reservedThreads[name]->release();
+					this->reservedThreads.erase(name);
+					done = true;
+				}
+			}
 		}
 	}
 }

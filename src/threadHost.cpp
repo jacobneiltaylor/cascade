@@ -19,6 +19,7 @@ namespace taylornet
 		{
 			this->assigned = false;
 			this->managed = false;
+			this->reserved = false;
 
 			this->thread = NULL;
 			this->assignedWorker = NULL;
@@ -49,6 +50,32 @@ namespace taylornet
 		void threadHost::assignManager(threadManager* manager)
 		{
 			this->manager = manager;
+		}
+
+		void threadHost::reserve()
+		{
+			if (!reserved)
+			{
+				this->assignedWorker = nullptr;
+				this->reserved = true;
+			}
+			else
+			{
+				throw new std::runtime_error("Cannot reserve a reserved thread");
+			}
+		}
+
+		void threadHost::release()
+		{
+			if (reserved)
+			{
+				this->assignedWorker = nullptr;
+				this->reserved = false;
+			}
+			else
+			{
+				throw new std::runtime_error("Cannot released an unreserved thread");
+			}
 		}
 
 		void threadHost::startThread()
@@ -103,6 +130,18 @@ namespace taylornet
 
 		void threadHost::assignWorker(worker* worker)
 		{
+			if (this->reserved)
+			{
+				this->assignWorker_P(worker);
+			}
+			else
+			{
+				throw new std::runtime_error("Unreserved threads cannot be assigned workers directly");
+			}
+		}
+
+		void threadHost::assignWorker_P(worker* worker)
+		{
 			this->assigned = true;
 			this->assignedWorker = worker;
 			this->assignedWorker->setHost(this);
@@ -141,6 +180,11 @@ namespace taylornet
 		void threadHost::unlock(std::string name)
 		{
 			this->manager->unlock(name);
+		}
+
+		bool threadHost::isReserved()
+		{
+			return this->reserved;
 		}
 	}
 }
