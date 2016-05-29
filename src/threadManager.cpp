@@ -36,7 +36,7 @@ namespace taylornet
 
 		unsigned int threadManager::getFreeThreadHost()
 		{
-			unsigned int freeIndex;
+			unsigned int freeIndex = 0;
 			unsigned int hostCount = this->getHostCount();
 
 			for(unsigned int i = 0; i < hostCount; i++)
@@ -294,6 +294,11 @@ namespace taylornet
 			}
 
 			return reserved_thread;
+		}
+
+		threadHost* threadManager::retrieveReservation(std::string name)
+		{
+			return this->reservedThreads[name];
 		}
 
 		void threadManager::releaseThread(std::string name)

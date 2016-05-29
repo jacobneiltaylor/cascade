@@ -80,6 +80,7 @@ namespace taylornet
 				LIBCASCADE_API unsigned int busyThreads();
 
 				LIBCASCADE_API threadHost* reserveThread(std::string name);
+				LIBCASCADE_API threadHost* retrieveReservation(std::string name);
 				LIBCASCADE_API void releaseThread(std::string name);
 		};
 	}
