@@ -26,6 +26,7 @@ namespace taylornet
 				static bool initialised;
 
 				bool oversub;
+				bool wait_reservation;
 				unsigned int hardThreadLimit;
 				unsigned int threadLimit;
 
@@ -35,7 +36,7 @@ namespace taylornet
 				std::queue<worker*> workerQueue;
 				std::vector<threadHost*> threadHosts;
 				std::map<std::string, std::mutex*> registeredMutexes;
-				// Future feature: named hosts - std::map<std::string, threadHost*> namedHosts;
+				std::map<std::string, threadHost*> reservedThreads;
 
 				void generateThreadHosts();
 				unsigned int getFreeThreadHost();
@@ -72,11 +73,14 @@ namespace taylornet
 				LIBCASCADE_API threadHost* getDispatchedHost();
 				LIBCASCADE_API unsigned int getQueueLength();
 
-				LIBCASCADE_API void waitForWorkers();
+				LIBCASCADE_API void waitForWorkers(bool unreserved_only = false);
 
 				LIBCASCADE_API unsigned int freeThreads();
 				LIBCASCADE_API unsigned int idleThreads();
 				LIBCASCADE_API unsigned int busyThreads();
+
+				LIBCASCADE_API threadHost* reserveThread(std::string name);
+				LIBCASCADE_API void releaseThread(std::string name);
 		};
 	}
 }

@@ -1,6 +1,7 @@
 #ifdef __TEST__
 
 #include "testWorker.h"
+#include "queueWorker.h"
 
 using namespace std;
 using namespace taylornet::cascade;
@@ -34,11 +35,19 @@ int main()
 
 	tm->registerNewMutex("output");
 
+	cout << "Reserving queueWorker threadHost...\n\n";
+
+	threadHost* reserved_thread = tm->reserveThread("queuehost");
+
+	cout << "Assigning queueWorker to reserved threadHost...\n\n";
+
+	queueWorker* dispatcher = new queueWorker();
+	reserved_thread->assignWorker(dispatcher);
+
 	cout << "Loading workers into thread queue...\n\n";
 
-	for(unsigned int i = 0; i < tm->getHostCount(); i++)
+	for(unsigned int i = 0; i < tm->freeThreads(); i++)
 	{
-		//cout >>
 		string str = SSTR("This is thread number " << i+1);
 
 		testWorker* newWorker = new testWorker(str);
@@ -49,14 +58,15 @@ int main()
 
 	cout << "Starting threads...\n\n";
 
-	for(unsigned int j = 0; tm->getQueueLength() > 0; j++)
-	{
-		tm->dispatchQueue();
-	}
+	reserved_thread->startThread();
 
 	cout << "Waiting for threads...\n\n";
 
-	tm->waitForWorkers();
+	tm->waitForWorkers(true);
+
+	cout << "Stopping queueWorker...\n\n";
+
+	dispatcher->stop();
 
 	system("pause");
 
