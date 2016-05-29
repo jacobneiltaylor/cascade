@@ -13,16 +13,15 @@ Supported Features
 
 * Cross-platform: this library is designed to work across Windows, MacOSX and Linux. If it doesn't work on your platform, we want to hear about it!
 * Limited dependencies: This library only depends on C++11 and the STL. No boost or other 3rd party dependancies!
-* High-level interface: The library is completely object oriented, and the threadManager class (the main entry point to the libraries functionality) is coded as a singleton. No need to play hot potato with pointers (and debug the associated memory access violations)!
+* High-level interface: The library is completely object oriented, and the threadManager class (the main entry point to the libraries functionality) is coded as a singleton. No need to play hot potato with pointers (and debug the associated memory access violations).
 * Automatic resource management: Threads are spun up when new work is assigned and released when complete, so your application automatically uses only as much system resources as absolutely necessary.
 * Registerable mutexes: Mutexes can be created by registering them with the threadManager, which means they are then easily accessible in all workers, automatically.
+* Reservable thread hosts: Should you want to manually control one or more threads, you can "reserve" a thread host. This allows you to have 1 or 2 threads running special service tasks, with all remainaing threads operating in automatic mode as per normal.
 
 Future Features
 ---------------
 
-Currently, we are working on making the build process straightforward. We are in the process of writing makefiles and ensuring the library builds smoothly across all supported platforms (Windows, Mac OSX, Linux). See the "Compiling" section for more details on building the library now. Once this process is complete, focus will shift back to feature development.
-
-In the future, we hope to add advanced features including reserved threads, persistent (service) threads, integrated message passing, automatic mutex release on thread completion and more.
+In the future, we hope to add advanced features including persistent (service) threads, integrated message passing, automatic mutex release on thread completion and more.
 
 Compiling
 ---------
@@ -36,7 +35,7 @@ Tests on other platform releases and compilers are forthcoming.
 
 In the long term, the targeted compilers for each platform will be as follows:
 
-* Windows: Microsoft Visual C++ Compiler
+* Windows: Microsoft Visual C++ Compiler, LLVM Clang with MS CodeGen
 * Mac OSX: LLVM Clang
 * Linux: LLVM Clang, GNU Compiler Collection
 
