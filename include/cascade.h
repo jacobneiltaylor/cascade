@@ -45,8 +45,8 @@ namespace taylornet
 }
 
 // Library Header Files
-#include "worker.h"
-#include "threadHost.h"
-#include "threadManager.h"
+#include "cascade\worker.h"
+#include "cascade\threadHost.h"
+#include "cascade\threadManager.h"
 
 #endif
